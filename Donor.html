@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Donor Page</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyB77M48ouiGBQ1UH1eVhk4OHdaLp1JIHtY",
+        authDomain: "feed-bridge-5119a.firebaseapp.com",
+        projectId: "feed-bridge-5119a",
+        storageBucket: "feed-bridge-5119a.firebasestorage.app",
+        messagingSenderId: "630453906418",
+        appId: "1:630453906418:web:c5eaf252c872213643d96b"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      var db = firebase.firestore();
+    </script>
+</head>
+
+<body>
+    <h2>Post Food Details</h2>
+
+    <input type="text" id="foodType" placeholder="Food Type"><br>
+    <input type="number" id="quantity" placeholder="Serves how many"><br>
+    <input type="text" id="location" placeholder="Pickup Location"><br>
+    <input type="time" id="expiry"><br>
+
+    <button onclick="getLocation()">Use My Current Location</button>
+    <p id="locStatus"></p>
+
+    <button onclick="addFood()">Request Pickup</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
