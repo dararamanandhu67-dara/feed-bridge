@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>feed-bridge | NGO Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <style>
+        /* Added a background color so you can see the map container even if it's loading */
+        #map { height: 250px; width: 100%; border-radius: 8px; margin-bottom: 20px; z-index: 1; background-color: #333; }
+        .error-msg { color: #ff4444; text-align: center; font-weight: bold; margin-top: 10px; }
+    </style>
+</head>
+<body>
+<div class="container wide">
+    <h2>🍱 NGO Dashboard</h2>
+    <div id="map"></div>
+    <div id="foodList">
+        <p style="text-align: center; opacity: 0.7;">Loading donations...</p>
+    </div>
+    <button onclick="logout()" class="secondary-btn" style="margin-top: 20px;">Logout</button>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    // 1. Initialize Firebase FIRST
+    var firebaseConfig = { 
+        apiKey: "AIzaSyB77M48ouiGBQ1UH1eVhk4OHdaLp1JIHtY", 
+        authDomain: "feed-bridge-5119a.firebaseapp.com", 
+        projectId: "feed-bridge-5119a", 
+        storageBucket: "feed-bridge-5119a.firebasestorage.app", 
+        messagingSenderId: "630453906418", 
+        appId: "1:630453906418:web:c5eaf252c872213643d96b" 
+    };
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    var db = firebase.firestore();
+</script>
+
+<script src="script.js"></script>
+
+<script>
+    // 3. Trigger Auth Listener LAST
+    firebase.auth().onAuthStateChanged(user => { 
+        if(!user) {
+            window.location.href="login.html";
+        } else {
+            // Check if the file loaded correctly to prevent silent crashes
+            if (typeof loadFoodPosts === "function") {
+                loadFoodPosts();
+            } else {
+                document.getElementById("foodList").innerHTML = '<p class="error-msg">Error: script.js failed to load. Please do a Hard Refresh!</p>';
+            }
+        }
+    });
+</script>
+</body>
+</html>

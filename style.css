@@ -1,0 +1,163 @@
+/* RESET & GLOBAL STYLES */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 15px;
+    color: white;
+    
+    /* FIX: This makes the portrait image fit perfectly on BOTH PC and Mobile */
+    background: url('bg.jpg') no-repeat center center fixed;
+    background-size: cover; 
+}
+
+/* On PC, we prevent the "zoom" by using a different background scaling */
+@media (min-width: 1024px) {
+    body {
+        background-size: 100% 100%; /* Forces the image to fit the screen width/height */
+    }
+}
+
+/* UI CONTAINER (Glassmorphism) */
+.container {
+    background: rgba(0, 0, 0, 0.5); /* Glass effect from reference */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 30px 20px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* WIDER DASHBOARD FOR NGO */
+.container.wide {
+    max-width: 900px;
+}
+
+h2 { 
+    margin-bottom: 20px; 
+    font-weight: 700; 
+    font-size: 1.6em; 
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* FORM ELEMENTS */
+input, select, button {
+    width: 100%;
+    padding: 12px 18px;
+    margin: 8px 0;
+    border-radius: 50px; /* Pill shape from reference */
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+
+input, select { 
+    background: white; 
+    color: #333; 
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* BUTTONS */
+button {
+    background: white;
+    color: #6d28d9;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover { 
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid white;
+}
+
+/* NGO DASHBOARD GRID (THE "BADGES") */
+#foodList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Automatically makes 1, 2, or 3 columns */
+    gap: 15px;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+/* THE CARD BADGE DESIGN */
+.card {
+    background: rgba(255, 255, 255, 0.15); /* Semi-transparent */
+    padding: 20px;
+    border-radius: 18px;
+    text-align: left;
+    border-bottom: 4px solid #adff2f; /* Accent color at bottom */
+    transition: 0.3s;
+    backdrop-filter: blur(5px);
+}
+
+.card:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-5px);
+}
+
+.card b { 
+    display: block; 
+    font-size: 1.2em; 
+    color: #adff2f; 
+    margin-bottom: 5px;
+}
+
+.card small { 
+    display: block; 
+    color: #eee; 
+    margin-bottom: 12px;
+}
+
+.card button {
+    padding: 10px;
+    font-size: 12px;
+    border-radius: 10px;
+}
+
+/* MAP AREA */
+#map {
+    height: 350px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    border: 2px solid rgba(255,255,255,0.2);
+}
+
+/* TOAST */
+.toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 50px;
+    padding: 16px;
+    position: fixed;
+    z-index: 100;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.toast.show { visibility: visible; animation: fadein 0.5s; }
+@keyframes fadein { from { bottom: 0; opacity: 0; } to { bottom: 30px; opacity: 1; } }

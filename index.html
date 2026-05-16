@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>feed-bridge</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script>
+      var firebaseConfig = { 
+        apiKey: "AIzaSyB77M48ouiGBQ1UH1eVhk4OHdaLp1JIHtY", 
+        authDomain: "feed-bridge-5119a.firebaseapp.com", 
+        projectId: "feed-bridge-5119a", 
+        storageBucket: "feed-bridge-5119a.firebasestorage.app", 
+        messagingSenderId: "630453906418", 
+        appId: "1:630453906418:web:c5eaf252c872213643d96b" 
+      };
+      firebase.initializeApp(firebaseConfig);
+      firebase.auth().onAuthStateChanged(user => { if(!user) window.location.href="login.html"; });
+    </script>
+</head>
+<body>
+<div class="container">
+    <h1 style="margin-bottom: 20px;">🍱 feed-bridge</h1>
+    <p style="margin-bottom: 10px; opacity: 0.9;">Choose your role</p>
+    <button onclick="window.location.href='donor.html'">I'm a Donor</button>
+    <button onclick="window.location.href='ngo.html'">I'm an NGO</button>
+    <button onclick="firebase.auth().signOut()" class="secondary-btn" style="margin-top: 15px;">Logout</button>
+</div>
+</body>
+</html>

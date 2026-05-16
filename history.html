@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>feed-bridge | Donation History</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+</head>
+<body>
+<div class="container">
+    <h2 style="margin-bottom: 20px;">📜 Donation History</h2>
+    
+    <div id="donorHistory" style="text-align: left;"></div>
+    
+    <button onclick="window.location.href='donor.html'" class="secondary-btn" style="margin-top: 20px;">Back to Donor Page</button>
+</div>
+<div id="toast" class="toast"></div>
+
+<script>
+    var firebaseConfig = { 
+        apiKey: "AIzaSyB77M48ouiGBQ1UH1eVhk4OHdaLp1JIHtY", 
+        authDomain: "feed-bridge-5119a.firebaseapp.com", 
+        projectId: "feed-bridge-5119a", 
+        storageBucket: "feed-bridge-5119a.firebasestorage.app", 
+        messagingSenderId: "630453906418", 
+        appId: "1:630453906418:web:c5eaf252c872213643d96b" 
+    };
+    firebase.initializeApp(firebaseConfig);
+    var db = firebase.firestore();
+
+    // Verification and start listener
+    firebase.auth().onAuthStateChanged(user => { 
+        if(!user) {
+            window.location.href="login.html"; 
+        } else {
+            // Load the history when the user is verified
+            if (typeof loadDonorHistory === "function") loadDonorHistory();
+        }
+    });
+</script>
+<script src="script.js"></script>
+</body>
+</html>

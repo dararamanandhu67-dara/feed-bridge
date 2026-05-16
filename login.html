@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>feed-bridge | Login</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyB77M48ouiGBQ1UH1eVhk4OHdaLp1JIHtY",
+        authDomain: "feed-bridge-5119a.firebaseapp.com",
+        projectId: "feed-bridge-5119a",
+        storageBucket: "feed-bridge-5119a.firebasestorage.app",
+        messagingSenderId: "630453906418",
+        appId: "1:630453906418:web:c5eaf252c872213643d96b"
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+</head>
+<body>
+<div class="container">
+    <h2> Welcome</h2>
+    <input type="email" id="email" placeholder="Email Address">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p style="font-size: 0.8em; margin: 10px 0;"><a href="#" onclick="forgotPassword()" style="color: white; text-decoration: underline;">Forgot Password?</a></p>
+    <button onclick="register()" class="secondary-btn">Create Account</button>
+</div>
+<div id="toast" class="toast"></div>
+<script>
+function showToast(msg) {
+    const t = document.getElementById("toast"); t.innerText = msg;
+    t.className = "toast show"; setTimeout(() => { t.className = "toast"; }, 4000);
+}
+function login() {
+    firebase.auth().signInWithEmailAndPassword(document.getElementById("email").value, document.getElementById("password").value)
+    .then(() => { window.location.href = "index.html"; })
+    .catch(e => showToast(e.message));
+}
+function register() {
+    firebase.auth().createUserWithEmailAndPassword(document.getElementById("email").value, document.getElementById("password").value)
+    .then(() => { showToast("Created! Now Login."); })
+    .catch(e => showToast(e.message));
+}
+function forgotPassword() {
+    const email = document.getElementById("email").value;
+    if(!email) return showToast("Type email first");
+    firebase.auth().sendPasswordResetEmail(email).then(() => showToast("Sent!")).catch(e => showToast(e.message));
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>feed-bridge | Donor</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+</head>
+<body>
+<div class="container">
+    <h2> Donate Food</h2>
+    <input type="text" id="donorName" placeholder="Your Name">
+    <input type="tel" id="phone" placeholder="Phone Number">
+    <input type="text" id="foodType" placeholder="Food Name">
+    <input type="number" id="quantity" placeholder="Servings Count">
+    
+    <select id="expiryHours">
+        <option value="2">Expires in 2 Hours</option>
+        <option value="4">Expires in 4 Hours</option>
+        <option value="6">Expires in 6 Hours</option>
+        <option value="12">Expires in 12 Hours</option>
+    </select>
+
+    <button onclick="getLocation()" class="secondary-btn">📍 Capture Location</button>
+    <p id="locStatus" style="font-size: 0.85em; margin: 10px 0; color: #adff2f; font-weight: 600; min-height: 1.2em;"></p>
+
+    <button onclick="addFood()" style="background: #10b981; color: white;">Post Donation</button>
+    
+   <button onclick="window.location.href='history.html'" class="secondary-btn" style="margin-top: 15px; background: #eab308; color: black; border: none; font-weight: bold;">📜 View Donation History</button>
+    
+    <button onclick="window.location.href='index.html'" class="secondary-btn" style="margin-top: 10px;">Back</button>
+</div>
+<div id="toast" class="toast"></div>
+
+<script>
+    var firebaseConfig = { 
+        apiKey: "AIzaSyB77M48ouiGBQ1UH1eVhk4OHdaLp1JIHtY", 
+        authDomain: "feed-bridge-5119a.firebaseapp.com", 
+        projectId: "feed-bridge-5119a", 
+        storageBucket: "feed-bridge-5119a.firebasestorage.app", 
+        messagingSenderId: "630453906418", 
+        appId: "1:630453906418:web:c5eaf252c872213643d96b" 
+    };
+    firebase.initializeApp(firebaseConfig);
+    var db = firebase.firestore();
+
+    // Verification and start listener
+    firebase.auth().onAuthStateChanged(user => { 
+        if(!user) {
+            window.location.href="login.html"; 
+        } else {
+            listenForNotifications();
+        }
+    });
+</script>
+<script src="script.js"></script>
+</body>
+</html>
