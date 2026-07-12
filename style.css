@@ -1,163 +1,346 @@
-/* RESET & GLOBAL STYLES */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+/* ===========================
+   RESET & GLOBAL STYLES
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
 }
 
-body {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 15px;
-    color: white;
-    
-    /* FIX: This makes the portrait image fit perfectly on BOTH PC and Mobile */
-    background: url('bg.jpg') no-repeat center center fixed;
-    background-size: cover; 
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:15px;
+    color:#fff;
+    background:url('bg.jpg') no-repeat center center fixed;
+    background-size:cover;
 }
 
-/* On PC, we prevent the "zoom" by using a different background scaling */
-@media (min-width: 1024px) {
-    body {
-        background-size: 100% 100%; /* Forces the image to fit the screen width/height */
+@media (min-width:1024px){
+    body{
+        background-size:100% 100%;
     }
 }
 
-/* UI CONTAINER (Glassmorphism) */
-.container {
-    background: rgba(0, 0, 0, 0.5); /* Glass effect from reference */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 30px 20px;
-    border-radius: 20px;
-    width: 100%;
-    max-width: 350px;
-    text-align: center;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+/* ===========================
+   CONTAINER
+=========================== */
+
+.container{
+    width:100%;
+    max-width:350px;
+    padding:30px 20px;
+    text-align:center;
+
+    background:rgba(0,0,0,.50);
+
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+
+    border-radius:20px;
+
+    border:1px solid rgba(255,255,255,.15);
+
+    box-shadow:0 10px 40px rgba(0,0,0,.60);
 }
 
-/* WIDER DASHBOARD FOR NGO */
-.container.wide {
-    max-width: 900px;
+.container.wide{
+    max-width:900px;
 }
 
-h2 { 
-    margin-bottom: 20px; 
-    font-weight: 700; 
-    font-size: 1.6em; 
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+/* ===========================
+   HEADINGS
+=========================== */
+
+h2{
+    margin-bottom:20px;
+    font-size:1.6rem;
+    font-weight:700;
 }
 
-/* FORM ELEMENTS */
-input, select, button {
-    width: 100%;
-    padding: 12px 18px;
-    margin: 8px 0;
-    border-radius: 50px; /* Pill shape from reference */
-    border: none;
-    outline: none;
-    font-size: 15px;
+/* ===========================
+   INPUTS
+=========================== */
+
+input,
+select,
+button{
+
+    width:100%;
+
+    padding:12px 18px;
+
+    margin:8px 0;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:50px;
+
+    font-size:15px;
+
 }
 
-input, select { 
-    background: white; 
-    color: #333; 
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+input,
+select{
+
+    background:#fff;
+
+    color:#333;
+
+    box-shadow:inset 0 2px 4px rgba(0,0,0,.10);
+
 }
 
-/* BUTTONS */
-button {
-    background: white;
-    color: #6d28d9;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.3s ease;
+/* ===========================
+   PASSWORD BOX
+=========================== */
+
+.password-box{
+
+    position:relative;
+
+    width:100%;
+
+    margin:8px 0;
+
 }
 
-button:hover { 
-    background: #f0f0f0;
-    transform: translateY(-2px);
+.password-box input{
+
+    width:100%;
+
+    margin:0;
+
+    padding-right:55px;
+
 }
 
-.secondary-btn {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 1px solid white;
+#togglePassword{
+
+    position:absolute;
+
+    right:18px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    cursor:pointer;
+
+    font-size:20px;
+
+    color:#666;
+
+    user-select:none;
+
+    transition:.25s;
+
+    z-index:10;
+
 }
 
-/* NGO DASHBOARD GRID (THE "BADGES") */
-#foodList {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Automatically makes 1, 2, or 3 columns */
-    gap: 15px;
-    margin-top: 20px;
-    padding: 10px;
+#togglePassword:hover{
+
+    color:#000;
+
+    transform:translateY(-50%) scale(1.15);
+
 }
 
-/* THE CARD BADGE DESIGN */
-.card {
-    background: rgba(255, 255, 255, 0.15); /* Semi-transparent */
-    padding: 20px;
-    border-radius: 18px;
-    text-align: left;
-    border-bottom: 4px solid #adff2f; /* Accent color at bottom */
-    transition: 0.3s;
-    backdrop-filter: blur(5px);
+/* ===========================
+   BUTTONS
+=========================== */
+
+button{
+
+    background:#fff;
+
+    color:#6d28d9;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
 }
 
-.card:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: translateY(-5px);
+button:hover{
+
+    background:#f3f3f3;
+
+    transform:translateY(-2px);
+
 }
 
-.card b { 
-    display: block; 
-    font-size: 1.2em; 
-    color: #adff2f; 
-    margin-bottom: 5px;
+.secondary-btn{
+
+    background:rgba(255,255,255,.20);
+
+    color:#fff;
+
+    border:1px solid #fff;
+
 }
 
-.card small { 
-    display: block; 
-    color: #eee; 
-    margin-bottom: 12px;
+/* ===========================
+   NGO GRID
+=========================== */
+
+#foodList{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+    gap:15px;
+
+    margin-top:20px;
+
+    padding:10px;
+
 }
 
-.card button {
-    padding: 10px;
-    font-size: 12px;
-    border-radius: 10px;
+/* ===========================
+   CARD
+=========================== */
+
+.card{
+
+    background:rgba(255,255,255,.15);
+
+    padding:20px;
+
+    border-radius:18px;
+
+    border-bottom:4px solid #adff2f;
+
+    backdrop-filter:blur(5px);
+
+    transition:.3s;
+
+    text-align:left;
+
 }
 
-/* MAP AREA */
-#map {
-    height: 350px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    width: 100%;
-    border: 2px solid rgba(255,255,255,0.2);
+.card:hover{
+
+    background:rgba(255,255,255,.25);
+
+    transform:translateY(-5px);
+
 }
 
-/* TOAST */
-.toast {
-    visibility: hidden;
-    min-width: 250px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 50px;
-    padding: 16px;
-    position: fixed;
-    z-index: 100;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
+.card b{
+
+    display:block;
+
+    color:#adff2f;
+
+    font-size:1.2rem;
+
+    margin-bottom:5px;
+
 }
 
-.toast.show { visibility: visible; animation: fadein 0.5s; }
-@keyframes fadein { from { bottom: 0; opacity: 0; } to { bottom: 30px; opacity: 1; } }
+.card small{
+
+    display:block;
+
+    color:#eee;
+
+    margin-bottom:12px;
+
+}
+
+.card button{
+
+    border-radius:10px;
+
+    font-size:12px;
+
+}
+
+/* ===========================
+   MAP
+=========================== */
+
+#map{
+
+    width:100%;
+
+    height:350px;
+
+    margin-bottom:20px;
+
+    border-radius:20px;
+
+    border:2px solid rgba(255,255,255,.20);
+
+}
+
+/* ===========================
+   TOAST
+=========================== */
+
+.toast{
+
+    visibility:hidden;
+
+    min-width:250px;
+
+    background:#333;
+
+    color:#fff;
+
+    padding:16px;
+
+    border-radius:50px;
+
+    text-align:center;
+
+    position:fixed;
+
+    left:50%;
+
+    bottom:30px;
+
+    transform:translateX(-50%);
+
+    z-index:9999;
+
+}
+
+.toast.show{
+
+    visibility:visible;
+
+    animation:fadein .4s;
+
+}
+
+@keyframes fadein{
+
+    from{
+
+        opacity:0;
+
+        bottom:0;
+
+    }
+
+    to{
+
+        opacity:1;
+
+        bottom:30px;
+
+    }
+
+}

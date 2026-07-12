@@ -1,54 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>feed-bridge | Login</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script>
-      var firebaseConfig = {
-        apiKey: "AIzaSyB77M48ouiGBQ1UH1eVhk4OHdaLp1JIHtY",
-        authDomain: "feed-bridge-5119a.firebaseapp.com",
-        projectId: "feed-bridge-5119a",
-        storageBucket: "feed-bridge-5119a.firebasestorage.app",
-        messagingSenderId: "630453906418",
-        appId: "1:630453906418:web:c5eaf252c872213643d96b"
-      };
-      firebase.initializeApp(firebaseConfig);
-    </script>
-</head>
-<body>
-<div class="container">
-    <h2> Welcome</h2>
-    <input type="email" id="email" placeholder="Email Address">
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="login()">Login</button>
-    <p style="font-size: 0.8em; margin: 10px 0;"><a href="#" onclick="forgotPassword()" style="color: white; text-decoration: underline;">Forgot Password?</a></p>
-    <button onclick="register()" class="secondary-btn">Create Account</button>
-</div>
-<div id="toast" class="toast"></div>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>feed-bridge | Login</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
 <script>
-function showToast(msg) {
-    const t = document.getElementById("toast"); t.innerText = msg;
-    t.className = "toast show"; setTimeout(() => { t.className = "toast"; }, 4000);
-}
-function login() {
-    firebase.auth().signInWithEmailAndPassword(document.getElementById("email").value, document.getElementById("password").value)
-    .then(() => { window.location.href = "index.html"; })
-    .catch(e => showToast(e.message));
-}
-function register() {
-    firebase.auth().createUserWithEmailAndPassword(document.getElementById("email").value, document.getElementById("password").value)
-    .then(() => { showToast("Created! Now Login."); })
-    .catch(e => showToast(e.message));
-}
-function forgotPassword() {
-    const email = document.getElementById("email").value;
-    if(!email) return showToast("Type email first");
-    firebase.auth().sendPasswordResetEmail(email).then(() => showToast("Sent!")).catch(e => showToast(e.message));
-}
+var firebaseConfig = {
+    apiKey: "AIzaSyB77M48ouiGBQ1UH1eVhk4OHdaLp1JIHtY",
+    authDomain: "feed-bridge-5119a.firebaseapp.com",
+    projectId: "feed-bridge-5119a",
+    storageBucket: "feed-bridge-5119a.firebasestorage.app",
+    messagingSenderId: "630453906418",
+    appId: "1:630453906418:web:c5eaf252c872213643d96b"
+};
+
+firebase.initializeApp(firebaseConfig);
 </script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Welcome</h2>
+
+    <input
+        type="email"
+        id="email"
+        placeholder="Email Address">
+
+    <div class="password-box">
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Password">
+
+        <span
+            id="togglePassword"
+            onclick="togglePassword()"
+            title="Show Password">
+            👁
+        </span>
+
+    </div>
+
+    <button onclick="login()">Login</button>
+
+    <p style="font-size:0.8em;margin:10px 0;">
+        <a href="#"
+        onclick="forgotPassword()"
+        style="color:white;text-decoration:underline;">
+        Forgot Password?
+        </a>
+    </p>
+
+    <button onclick="register()" class="secondary-btn">
+        Create Account
+    </button>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+
+function showToast(msg){
+
+    const toast=document.getElementById("toast");
+
+    toast.innerText=msg;
+
+    toast.className="toast show";
+
+    setTimeout(function(){
+
+        toast.className="toast";
+
+    },4000);
+
+}
+
+function togglePassword(){
+
+    const password=document.getElementById("password");
+    const eye=document.getElementById("togglePassword");
+
+    if(password.type==="password"){
+
+        password.type="text";
+
+        eye.innerHTML="👁";
+
+        eye.title="Hide Password";
+
+    }
+    else{
+
+        password.type="password";
+
+        eye.innerHTML="👁";
+
+        eye.title="Show Password";
+
+    }
+
+}
+
+function login(){
+
+    const email=document.getElementById("email").value.trim();
+
+    const password=document.getElementById("password").value;
+
+    if(email==="" || password===""){
+
+        showToast("PLEASE ENTER EMAIL AND PASSWORD");
+
+        return;
+
+    }
+
+    firebase.auth()
+
+    .signInWithEmailAndPassword(email,password)
+
+    .then(function(){
+
+        window.location.href="index.html";
+
+    })
+
+    .catch(function(){
+
+        showToast("INCORRECT PASSWORD");
+
+    });
+
+}
+
+function register(){
+
+    const email=document.getElementById("email").value.trim();
+
+    const password=document.getElementById("password").value;
+
+    firebase.auth()
+
+    .createUserWithEmailAndPassword(email,password)
+
+    .then(function(){
+
+        showToast("Created! Now Login.");
+
+    })
+
+    .catch(function(error){
+
+        showToast(error.message);
+
+    });
+
+}
+
+function forgotPassword(){
+
+    const email=document.getElementById("email").value.trim();
+
+    if(email===""){
+
+        showToast("PLEASE ENTER YOUR EMAIL ADDRESS FIRST.");
+
+        return;
+
+    }
+
+    firebase.auth()
+
+    .sendPasswordResetEmail(email)
+
+    .then(function(){
+
+        showToast("CHECK YOUR SPAM EMAIL TO CHANGE PASSWORD");
+
+    })
+
+    .catch(function(error){
+
+        showToast(error.message);
+
+    });
+
+}
+
+</script>
+
 </body>
+
 </html>
